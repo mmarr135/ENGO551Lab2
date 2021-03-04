@@ -52,5 +52,5 @@ def index():
         start=st[2]+'-'+st[0]+'-'+st[1]
         end=en[2]+'-'+en[0]+'-'+en[1]
         [lat, lon, dates, workgroups, contractors, communityname, originaladdress]=permitinfo(start, end)
-        return render_template("main.html", daterange=daterange,lat=lat, lon=lon, dates=dates, workgroups=workgroups, contractors=contractors, communityname=communityname, originaladdress=originaladdress)
+        return render_template("results.html", daterange=daterange,lat=lat, lon=lon, dates=dates, workgroups=workgroups, contractors=contractors, communityname=communityname, originaladdress=originaladdress)
     return render_template("main.html")

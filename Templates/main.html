@@ -5,9 +5,9 @@
 {% endblock %}
 
 {% block body %}
-{%if daterange %}
-  <p>You have chosen permits issued between {{daterange}}</p>
-{%endif%}
+
+  <p>Please Choose a Date Range</p>
+
 
 <form method="POST" action="{{ url_for('index') }}">
   <div id="datewidget">
@@ -37,31 +37,6 @@
       zoomOffset: -1,
       accessToken: 'pk.eyJ1IjoibW1hcnIiLCJhIjoiY2tsaDloN3diMGswNjJ2cXBxNXlnODdieSJ9.SpAD42Te3ZwK3j0C46fyMA'
   }).addTo(map);
-  var oms = new OverlappingMarkerSpiderfier(map);
-  var markers = L.markerClusterGroup();
-  var lat = {{lat|tojson}};
-  var lon = {{lon|tojson}};
-  var dates = {{dates|tojson}};
-  var workgroups = {{workgroups|tojson}};
-  var contractors = {{contractors|tojson}};
-  var communityname = {{communityname|tojson}};
-  var originaladdress = {{originaladdress|tojson}};
-
-  for (var i = 0; i < lat.length; i++) {
-  var marker = new L.marker([lat[i], lon[i]]).addTo(map).bindPopup("<b>Permit Details</b><br>Issue Date: "+dates[i]+"<br>Work Class Group: "+workgroups[i]+"<br>Contractor: "+ contractors[i]+"<br>Community Name: "+communityname[i]+"<br>Original Address: "+originaladdress[i]);
-  oms.addMarker(marker);
-  markers.addLayer(marker);
-  map.addLayer(markers);
-  }
-
-oms.addListener('click', function(marker) {
-  for (var i = 0; i < lat.length; i++) {
-  popup.setContent("<b>Permit Details</b><br>Issue Date: "+dates[i]+"<br>Work Class Group: "+workgroups[i]+"<br>Contractor: "+ contractors[i]+"<br>Community Name: "+communityname[i]+"<br>Original Address: "+originaladdress[i]);
-  popup.setLatLng(marker.getLatLng());
-  map.openPopup(popup);
-}
-});
-
 
     </script>
   </div>
