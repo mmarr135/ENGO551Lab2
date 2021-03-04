@@ -48,7 +48,7 @@
   var originaladdress = {{originaladdress|tojson}};
 
   for (var i = 0; i < lat.length; i++) {
-  var marker = new L.marker([lat[i], lon[i]]).addTo(map).bindPopup("<b>Permit Details</b><br>Issue Date: "+dates[i]+"<br>Work Class Group: "+workgroups[i]+"<br>Contractor: "+ contractors[i]+"<br>Community Name: "+communityname[i]+"<br>Original Address: "+originaladdress[i]);
+  var marker = new L.marker([lat[i], lon[i]]).bindPopup("<b>Permit Details</b><br>Issue Date: "+dates[i]+"<br>Work Class Group: "+workgroups[i]+"<br>Contractor: "+ contractors[i]+"<br>Community Name: "+communityname[i]+"<br>Original Address: "+originaladdress[i]);
   oms.addMarker(marker);
   markers.addLayer(marker);
   map.addLayer(markers);
