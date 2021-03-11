@@ -1,12 +1,12 @@
 {% extends "layout.html" %}
 
 {% block header %}
-  <h1>Building Permits for the City of Calgary</h1>
+  <h1>Building Permits and 2017 Traffic Incidents for the City of Calgary</h1>
 {% endblock %}
 
 {% block body %}
-
-  <p>Please Choose a Date Range</p>
+  <p>Use the toggle button to display traffic incidents</p>
+  <p>Please choose a date range to display permits</p>
 
 
 <form method="POST" action="{{ url_for('index') }}">
@@ -22,21 +22,44 @@
     });
     </script>
   </div>
-    <button class="btn btn-primary"> Show Permit Map </button>
+  <div id="permitbutton">
+    <button class="btn btn-primary"> Show Permits on Map </button>
+  </div>
 </form>
 
   <div id="mapid">
     <script>
 
-    var map = L.map('mapid').setView([51.04, -114.05], 10);
-    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+      var original= L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
       attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
       maxZoom: 18,
       id: 'mapbox/streets-v11',
       tileSize: 512,
       zoomOffset: -1,
       accessToken: 'pk.eyJ1IjoibW1hcnIiLCJhIjoiY2tsaDloN3diMGswNjJ2cXBxNXlnODdieSJ9.SpAD42Te3ZwK3j0C46fyMA'
-  }).addTo(map);
+    });
+
+    var traffic=L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+      attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+      maxZoom: 18,
+      id: 'mmarr/ckm2jjlfq4zus17paw3h3hde3',
+      tileSize: 512,
+      zoomOffset: -1,
+      accessToken: 'pk.eyJ1IjoibW1hcnIiLCJhIjoiY2tsaDljcm1oMjI0eDJ3bzMwY2xpeW9tbiJ9.f-kfWu0AkUBK6aU396cUTQ'
+  });
+
+  var map = L.map('mapid', {
+    center:[51.04, -114.05],
+    zoom: 10,
+    layers:[traffic, original]
+  });
+
+  var baseMaps = {
+    "Traffic Incidents": traffic,
+    "Original": original
+};
+
+L.control.layers(baseMaps).addTo(map);
 
     </script>
   </div>
